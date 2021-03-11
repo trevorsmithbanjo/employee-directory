@@ -13,7 +13,7 @@ import TableRow from './components/TableRow';
 
 
 function App() {
-  const [search, setSeach] = useState('');
+  const [search, setSearch] = useState('');
   const [users, setUsers] = useState([]);
 
   let userIndex = 1;
@@ -32,21 +32,31 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  const handleInputChange = event => {
+    setSearch(event.target.value)
+    const filteredUsers = users.filter(user =>
+      user.firstName.includes(search) || user.lastName.includes(search));
+    setUsers(filteredUsers);
+  }
+
 
   return (
     <Containter>
       <Row>
-        <Col size="md-8">
+        <Col size="12">
           <Title />
         </Col>
       </Row>
       <Row>
-        <Col size="md-8">
-          <SearchFrom />
+        <Col size="12">
+          <SearchFrom
+            handleInputChange={handleInputChange}
+            value={search}
+          />
         </Col>
       </Row>
       <Row>
-        <Col size="md-8">
+        <Col size="12">
           <Table>
             <TableHead />
             <TableBody>
