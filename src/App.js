@@ -19,6 +19,7 @@ function App() {
   let userIndex = 1;
   let firstNameClick = false;
   let lastNameClick = false;
+  let sortedUsers;
 
   useEffect(() => {
     loadUsers();
@@ -39,60 +40,44 @@ function App() {
     setUsers(filteredUsers);
   }
 
-  const sortFirstName = (event) => {
+  const sortFirstName = event => {
     event.preventDefault();
     // event.stopPropagation();
     console.log(event);
+    console.log(`firstNameClick before ${firstNameClick}`);
+
 
     if (firstNameClick === false) {
-      let sortedUsers = [...users].sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
+      sortedUsers = [...users].sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
       firstNameClick = true;
       setUsers(sortedUsers);
     }
     else {
-      let sortedUsers = [...users].sort((a, b) => (a.firstName > b.firstName ? -1 : 1));
+      sortedUsers = [...users].sort((a, b) => (a.firstName > b.firstName ? -1 : 1));
       firstNameClick = false;
       setUsers(sortedUsers);
     }
-
-    console.log(`firstNameClick ${firstNameClick}`);
-
-
-    // const sortedUsers = [...users].sort((a, b) => {
-    //   let nameA = a.firstName.toUpperCase();
-    //   let nameB = b.firstName.toUpperCase();
-    //   if (nameA < nameB) {
-    //     return -1;
-    //   }
-    //   if (nameA > nameB) {
-    //     return 1;
-    //   }
-
-    //   return 0;
-    // })
-    // console.log("SORTED USERS");
-    // console.log(sortedUsers);
-    // setUsers(sortedUsers);
+    // Trying to get the above conditional to change the value of "firstNameClick" //
+    console.log(`firstNameClick after ${firstNameClick}`);
   }
 
   const sortLastName = event => {
     event.preventDefault();
+    // event.stopPropagation();
     console.log(event);
 
-    const sortedUsers = users.sort((a, b) => {
-      let nameA = a.lastName.toUpperCase();
-      let nameB = b.lastName.toUpperCase();
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-
-      return 0;
-    })
-
-    setUsers(sortedUsers);
+    if (lastNameClick === false) {
+      let sortedUsers = [...users].sort((a, b) => (a.lastName > b.lastName ? 1 : -1));
+      lastNameClick = true;
+      setUsers(sortedUsers);
+    }
+    else {
+      let sortedUsers = [...users].sort((a, b) => (a.lastName > b.lastName ? -1 : 1));
+      lastNameClick = false;
+      setUsers(sortedUsers);
+    }
+    // Trying to get the above conditional to change the value of "firstNameClick" //
+    console.log(`firstNameClick ${lastNameClick}`);
   }
 
 

@@ -11,13 +11,13 @@ function SearchFrom({ handleInputChange, value, handleFormSubmit }) {
                     name="search"
                     type="text"
                     className="form-control"
-                    placeholder="Search Through Employees"
+                    placeholder="Search by First and Last Name"
                     id="search"
                 />
-                <br />
+                {/* <br />
                 <button onClick={handleFormSubmit} className="btn btn-primary">
                     Search
-        </button>
+        </button> */}
             </div>
         </form>
     );
