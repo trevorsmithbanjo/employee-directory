@@ -1,13 +1,13 @@
 import React from 'react';
 
-function SearchFrom(props) {
+function SearchFrom({ handleInputChange, value, handleFormSubmit }) {
     return (
         <form>
             <div className="form-group">
                 <label htmlFor="search">Search:</label>
                 <input
-                    onChange={props.handleInputChange}
-                    value={props.value}
+                    onChange={handleInputChange}
+                    value={value}
                     name="search"
                     type="text"
                     className="form-control"
@@ -15,7 +15,7 @@ function SearchFrom(props) {
                     id="search"
                 />
                 <br />
-                <button onClick={props.handleFormSubmit} className="btn btn-primary">
+                <button onClick={handleFormSubmit} className="btn btn-primary">
                     Search
         </button>
             </div>

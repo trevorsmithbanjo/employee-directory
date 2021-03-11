@@ -17,16 +17,16 @@ function App() {
   const [users, setUsers] = useState([]);
 
   let userIndex = 1;
+  let firstNameClick = false;
+  let lastNameClick = false;
 
   useEffect(() => {
     loadUsers();
-    console.log(`Users State ${users}`);
   }, [])
 
   function loadUsers() {
     API.fetchUsers()
       .then(users => {
-        console.log(users);
         setUsers(users)
       })
       .catch(err => console.log(err));
@@ -34,9 +34,65 @@ function App() {
 
   const handleInputChange = event => {
     setSearch(event.target.value)
-    const filteredUsers = users.filter(user =>
+    let filteredUsers = users.filter(user =>
       user.firstName.includes(search) || user.lastName.includes(search));
     setUsers(filteredUsers);
+  }
+
+  const sortFirstName = (event) => {
+    event.preventDefault();
+    // event.stopPropagation();
+    console.log(event);
+
+    if (firstNameClick === false) {
+      let sortedUsers = [...users].sort((a, b) => (a.firstName > b.firstName ? 1 : -1));
+      firstNameClick = true;
+      setUsers(sortedUsers);
+    }
+    else {
+      let sortedUsers = [...users].sort((a, b) => (a.firstName > b.firstName ? -1 : 1));
+      firstNameClick = false;
+      setUsers(sortedUsers);
+    }
+
+    console.log(`firstNameClick ${firstNameClick}`);
+
+
+    // const sortedUsers = [...users].sort((a, b) => {
+    //   let nameA = a.firstName.toUpperCase();
+    //   let nameB = b.firstName.toUpperCase();
+    //   if (nameA < nameB) {
+    //     return -1;
+    //   }
+    //   if (nameA > nameB) {
+    //     return 1;
+    //   }
+
+    //   return 0;
+    // })
+    // console.log("SORTED USERS");
+    // console.log(sortedUsers);
+    // setUsers(sortedUsers);
+  }
+
+  const sortLastName = event => {
+    event.preventDefault();
+    console.log(event);
+
+    const sortedUsers = users.sort((a, b) => {
+      let nameA = a.lastName.toUpperCase();
+      let nameB = b.lastName.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
+    })
+
+    setUsers(sortedUsers);
   }
 
 
@@ -58,7 +114,10 @@ function App() {
       <Row>
         <Col size="12">
           <Table>
-            <TableHead />
+            <TableHead
+              sortFirstName={sortFirstName}
+              sortLastName={sortLastName}
+            />
             <TableBody>
               {users.map(user =>
                 <TableRow
